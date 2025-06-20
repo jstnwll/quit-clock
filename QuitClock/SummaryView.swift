@@ -1,13 +1,13 @@
 //
-//  ContentView.swift
-//  Quit Clock
+//  SummaryView.swift
+//  QuitClock
 //
-//  Created by Justin Willemsen on 6/17/25.
+//  Created by Justin Willemsen on 6/19/25.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct SummaryView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    SummaryView()
 }

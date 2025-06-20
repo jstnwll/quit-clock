@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		03D9A2922E020524005E98BB /* Quit Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quit Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03B1E22F2E051A9F0041F724 /* QuitClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuitClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		03D9A2942E020524005E98BB /* Quit Clock */ = {
+		03B1E2312E051A9F0041F724 /* QuitClock */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Quit Clock";
+			path = QuitClock;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		03D9A28F2E020524005E98BB /* Frameworks */ = {
+		03B1E22C2E051A9F0041F724 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,18 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03D9A2892E020524005E98BB = {
+		03B1E2262E051A9F0041F724 = {
 			isa = PBXGroup;
 			children = (
-				03D9A2942E020524005E98BB /* Quit Clock */,
-				03D9A2932E020524005E98BB /* Products */,
+				03B1E2312E051A9F0041F724 /* QuitClock */,
+				03B1E2302E051A9F0041F724 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		03D9A2932E020524005E98BB /* Products */ = {
+		03B1E2302E051A9F0041F724 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				03D9A2922E020524005E98BB /* Quit Clock.app */,
+				03B1E22F2E051A9F0041F724 /* QuitClock.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,64 +48,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		03D9A2912E020524005E98BB /* Quit Clock */ = {
+		03B1E22E2E051A9F0041F724 /* QuitClock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 03D9A29D2E020526005E98BB /* Build configuration list for PBXNativeTarget "Quit Clock" */;
+			buildConfigurationList = 03B1E23A2E051AA00041F724 /* Build configuration list for PBXNativeTarget "QuitClock" */;
 			buildPhases = (
-				03D9A28E2E020524005E98BB /* Sources */,
-				03D9A28F2E020524005E98BB /* Frameworks */,
-				03D9A2902E020524005E98BB /* Resources */,
+				03B1E22B2E051A9F0041F724 /* Sources */,
+				03B1E22C2E051A9F0041F724 /* Frameworks */,
+				03B1E22D2E051A9F0041F724 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				03D9A2942E020524005E98BB /* Quit Clock */,
+				03B1E2312E051A9F0041F724 /* QuitClock */,
 			);
-			name = "Quit Clock";
+			name = QuitClock;
 			packageProductDependencies = (
 			);
-			productName = "Quit Clock";
-			productReference = 03D9A2922E020524005E98BB /* Quit Clock.app */;
+			productName = QuitClock;
+			productReference = 03B1E22F2E051A9F0041F724 /* QuitClock.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		03D9A28A2E020524005E98BB /* Project object */ = {
+		03B1E2272E051A9F0041F724 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
-					03D9A2912E020524005E98BB = {
-						CreatedOnToolsVersion = 16.4;
+					03B1E22E2E051A9F0041F724 = {
+						CreatedOnToolsVersion = 26.0;
 					};
 				};
 			};
-			buildConfigurationList = 03D9A28D2E020524005E98BB /* Build configuration list for PBXProject "Quit Clock" */;
+			buildConfigurationList = 03B1E22A2E051A9F0041F724 /* Build configuration list for PBXProject "QuitClock" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 03D9A2892E020524005E98BB;
+			mainGroup = 03B1E2262E051A9F0041F724;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 03D9A2932E020524005E98BB /* Products */;
+			productRefGroup = 03B1E2302E051A9F0041F724 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				03D9A2912E020524005E98BB /* Quit Clock */,
+				03B1E22E2E051A9F0041F724 /* QuitClock */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		03D9A2902E020524005E98BB /* Resources */ = {
+		03B1E22D2E051A9F0041F724 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,7 +115,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		03D9A28E2E020524005E98BB /* Sources */ = {
+		03B1E22B2E051A9F0041F724 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		03D9A29B2E020526005E98BB /* Debug */ = {
+		03B1E2382E051AA00041F724 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -177,7 +177,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -188,7 +188,7 @@
 			};
 			name = Debug;
 		};
-		03D9A29C2E020526005E98BB /* Release */ = {
+		03B1E2392E051AA00041F724 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -234,7 +234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -244,7 +244,7 @@
 			};
 			name = Release;
 		};
-		03D9A29E2E020526005E98BB /* Debug */ = {
+		03B1E23B2E051AA00041F724 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -263,15 +263,18 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jstnwll.Quit-Clock";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jstnwll.QuitClock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		03D9A29F2E020526005E98BB /* Release */ = {
+		03B1E23C2E051AA00041F724 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -290,9 +293,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jstnwll.Quit-Clock";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jstnwll.QuitClock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -301,25 +307,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		03D9A28D2E020524005E98BB /* Build configuration list for PBXProject "Quit Clock" */ = {
+		03B1E22A2E051A9F0041F724 /* Build configuration list for PBXProject "QuitClock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				03D9A29B2E020526005E98BB /* Debug */,
-				03D9A29C2E020526005E98BB /* Release */,
+				03B1E2382E051AA00041F724 /* Debug */,
+				03B1E2392E051AA00041F724 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		03D9A29D2E020526005E98BB /* Build configuration list for PBXNativeTarget "Quit Clock" */ = {
+		03B1E23A2E051AA00041F724 /* Build configuration list for PBXNativeTarget "QuitClock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				03D9A29E2E020526005E98BB /* Debug */,
-				03D9A29F2E020526005E98BB /* Release */,
+				03B1E23B2E051AA00041F724 /* Debug */,
+				03B1E23C2E051AA00041F724 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 03D9A28A2E020524005E98BB /* Project object */;
+	rootObject = 03B1E2272E051A9F0041F724 /* Project object */;
 }
