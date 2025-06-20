@@ -12,8 +12,12 @@ struct SummaryCardView: View {
     let startDate: String
     let days: Int
     // Calculate based on today - startDate
-    
-    
+    var formattedDays: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: days)) ?? "\(days)"
+    }
+
     var body: some View {
         VStack {
             HStack {
@@ -34,7 +38,7 @@ struct SummaryCardView: View {
                 // 18 months = 540 days
                 // 2 years = 730 days
                 // Celebrate each subsequent year after
-                
+
                 CircularProgressView(
                     color: .yellow,
                     progress: 1.0,
@@ -44,13 +48,13 @@ struct SummaryCardView: View {
                 Spacer()
                 VStack {
                     Text(habit)
-                        .font(.title)
+                        .font(.title2)
                         .bold()
-                    Text("\(String(days)) days")
+                    Text("\(formattedDays) days")
                         .font(.headline)
                         .bold()
                     Text("Since \(startDate)")
-                        .font(.caption)
+                        .font(.caption2)
                         .bold(true)
                 }
                 Spacer()
@@ -61,15 +65,18 @@ struct SummaryCardView: View {
                 )
                 .padding(.leading, 10)
             }
-            
+
         }
         .padding()
-        .background(Color("CardBackground").opacity(0.1))
+        .background(.ultraThinMaterial)
         .cornerRadius(15)
-        .padding(.horizontal)
     }
 }
 
 #Preview {
-    SummaryCardView(habit: "Cocaine", startDate: "December 12, 2024", days: 565)
+    SummaryCardView(
+        habit: "Cocaine",
+        startDate: "December 12, 2024",
+        days: 5165
+    )
 }
