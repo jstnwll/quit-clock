@@ -8,18 +8,14 @@
 import SwiftUI
 
 struct SummaryCardView: View {
-    var habit: String = "Drinking"
-    // var startDate: Date = ?
-    
+    let habit: String
+    let startDate: String
+    let days: Int
     // Calculate based on today - startDate
-    // var totalDays: Int = 0
-    // var days: Int = 0
-    // var weeks: Int = 0
-    // var months: Int = 0
-    // var years: Int = 0
+    
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack {
             HStack {
                 // Use total days as metric to calculate percentage
                 // Use singular for 1 (ie 1 week)
@@ -38,34 +34,42 @@ struct SummaryCardView: View {
                 // 18 months = 540 days
                 // 2 years = 730 days
                 // Celebrate each subsequent year after
-
+                
                 CircularProgressView(
-                    color: .green,
+                    color: .yellow,
                     progress: 1.0,
                     milestone: "3 mo"
                 )
-                .padding(.trailing, 5)
-                Text(habit)
-                    .font(.title)
-                    .bold()
+                .padding(.trailing, 10)
+                Spacer()
+                VStack {
+                    Text(habit)
+                        .font(.title)
+                        .bold()
+                    Text("\(String(days)) days")
+                        .font(.headline)
+                        .bold()
+                    Text("Since \(startDate)")
+                        .font(.caption)
+                        .bold(true)
+                }
+                Spacer()
                 CircularProgressView(
                     color: .red,
                     progress: 0.25,
                     milestone: "2 yr"
                 )
-                .padding(.leading, 5)
+                .padding(.leading, 10)
             }
-            VStack(alignment: .leading) {
-                Text("2 years - 1 month - 3 weeks - 3 days")
-                    .multilineTextAlignment(.leading)
-                Text("since December 12, 2019")
-                    .multilineTextAlignment(.leading)
-            }
-            .padding(.top, 5)
+            
         }
+        .padding()
+        .background(Color("CardBackground").opacity(0.1))
+        .cornerRadius(15)
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    SummaryCardView()
+    SummaryCardView(habit: "Cocaine", startDate: "December 12, 2024", days: 565)
 }
