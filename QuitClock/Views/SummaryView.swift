@@ -5,36 +5,50 @@
 //  Created by Justin Willemsen on 6/19/25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct SummaryView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<Habit> { $0.isHidden == false }) private
+        var habits: [Habit]
+    @State private var showingAddHabitView = false
+    let today: Date = Date()
+
     var body: some View {
         NavigationStack {
             VStack {
-                SummaryCardView(
-                    habit: "Drinking",
-                    startDate: "June 4, 2009",
-                    days: 5_859
-                )
-                SummaryCardView(
-                    habit: "Sugar",
-                    startDate: "December 22, 2023",
-                    days: 565
-                )
-                SummaryCardView(
-                    habit: "Swearing",
-                    startDate: "January 12, 2025",
-                    days: 157
-                )
-                Spacer()
+                if habits.isEmpty {
+                    Text("Add something you quit!")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(habits) { habit in
+                        SummaryCardView(
+                            habitName: habit.habitName,
+                            startDate: habit.startDate,
+                            daysSinceStart: habit.daysSinceStart
+                        )
+                    }
+                    Spacer()
+                }
             }
             .padding(5)
-            .navigationBarTitle("Quit Clock")
+            .navigationBarTitle("Summary")
             .toolbar {
+                ToolbarItem(placement: .largeSubtitle) {
+                    Text(formatDate(startDate: today))
+                    .foregroundStyle(.secondary)
+                }
                 ToolbarItem(placement: .bottomBar) {
-                    Button(action: {}) {
-                        Image(systemName: "plus")
+                    Button("\(Image(systemName: "plus"))") {
+                        showingAddHabitView.toggle()
                     }
+                    .sheet(
+                        isPresented: $showingAddHabitView,
+                        content: { AddHabitView() }
+                    )
+                    .tint(.accentColor)
+                    .disabled(habits.count >= 3)
                 }
             }
         }
@@ -42,5 +56,10 @@ struct SummaryView: View {
 }
 
 #Preview {
-    SummaryView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Habit.self, configurations: config)
+
+    return SummaryView()
+        .modelContainer(container)
 }
+ 
