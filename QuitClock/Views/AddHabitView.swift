@@ -50,7 +50,7 @@ struct AddHabitView: View {
                         dismiss()
                     }
                     .tint(.accentColor)
-                    .disabled(name.isEmpty || name.trimmingCharacters(in: .whitespaces) == "")
+                    .disabled(name.isEmpty || name.trimmingCharacters(in: .whitespaces) == "" || date > Date())
                 }
             }
         }
