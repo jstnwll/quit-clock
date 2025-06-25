@@ -13,6 +13,8 @@ struct SummaryView: View {
     @Query(filter: #Predicate<Habit> { $0.isHidden == false }) private
         var habits: [Habit]
     @State private var showingAddHabitView = false
+    @State private var showingEditHabitView = false
+    @State private var habitToEdit: Habit? = nil
     let today: Date = Date()
 
     var body: some View {
@@ -31,6 +33,12 @@ struct SummaryView: View {
                             nextMilestone: habit.nextMilestone,
                             progress: habit.progress,
                         )
+                        .onTapGesture {
+                            habitToEdit = habit
+                        }
+                    }
+                    .sheet(item: $habitToEdit) { habit in
+                        EditHabitView(habit: habit)
                     }
                     Spacer()
                 }
@@ -40,18 +48,22 @@ struct SummaryView: View {
             .toolbar {
                 ToolbarItem(placement: .largeSubtitle) {
                     Text(formatDate(startDate: today))
-                    .foregroundStyle(.secondary)
+                        .foregroundStyle(.secondary)
                 }
                 ToolbarItem(placement: .bottomBar) {
-                    Button("\(Image(systemName: "plus"))") {
-                        showingAddHabitView.toggle()
+                    if habits.count < 3 {
+                        // TODO: Change .confirm to .primary if API changes
+                        Button("\(Image(systemName: "plus"))", role: .confirm) {
+                            showingAddHabitView.toggle()
+                        }
+                        .sheet(
+                            isPresented: $showingAddHabitView,
+                            content: { AddHabitView() }
+                        )
+                    } else {
+                        Button("\(Image(systemName: "plus"))") {}
+                            .disabled(true)
                     }
-                    .tint(.accentColor)
-                    .sheet(
-                        isPresented: $showingAddHabitView,
-                        content: { AddHabitView() }
-                    )
-                    .disabled(habits.count >= 3)
                 }
             }
         }
@@ -65,4 +77,3 @@ struct SummaryView: View {
     return SummaryView()
         .modelContainer(container)
 }
- 

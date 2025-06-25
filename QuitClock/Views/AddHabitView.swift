@@ -36,7 +36,7 @@ struct AddHabitView: View {
             .background(.windowBackground)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("\(Image(systemName: "xmark"))") {
+                    Button("\(Image(systemName: "xmark"))", role: .cancel) {
                         dismiss()
                     }
                 }
@@ -44,13 +44,23 @@ struct AddHabitView: View {
                     Text("New Habit")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("\(Image(systemName: "checkmark"))") {
-                        addHabit()
-                        name = ""
-                        dismiss()
+                    // TODO: Change .confirm to .primary if API changes
+                    if name.isEmpty
+                        || name.trimmingCharacters(in: .whitespaces) == ""
+                        || date > Date()
+                    {
+                        Button("\(Image(systemName: "checkmark"))") {}
+                        .disabled(true)
+                    } else {
+                        Button(
+                            "\(Image(systemName: "checkmark"))",
+                            role: .confirm
+                        ) {
+                            addHabit()
+                            name = ""
+                            dismiss()
+                        }
                     }
-                    .tint(.accentColor)
-                    .disabled(name.isEmpty || name.trimmingCharacters(in: .whitespaces) == "" || date > Date())
                 }
             }
         }
