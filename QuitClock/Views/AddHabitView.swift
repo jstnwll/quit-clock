@@ -19,6 +19,11 @@ struct AddHabitView: View {
         NavigationStack {
             VStack {
                 TextField("Habit Name", text: $name)
+                    .onChange(of: name) { oldValue, newValue in
+                        if newValue.count > 15 {
+                            name = String("\(newValue.prefix(15))")
+                        }
+                    }
                 DatePicker(
                     "Start Date",
                     selection: $date,
@@ -45,7 +50,7 @@ struct AddHabitView: View {
                         dismiss()
                     }
                     .tint(.accentColor)
-                    .disabled(name.isEmpty)
+                    .disabled(name.isEmpty || name.trimmingCharacters(in: .whitespaces) == "")
                 }
             }
         }

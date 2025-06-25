@@ -19,14 +19,17 @@ struct SummaryView: View {
         NavigationStack {
             VStack {
                 if habits.isEmpty {
-                    Text("Add something you quit!")
+                    Text("Add something to quit!")
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(habits) { habit in
                         SummaryCardView(
                             habitName: habit.habitName,
                             startDate: habit.startDate,
-                            daysSinceStart: habit.daysSinceStart
+                            daysSinceStart: habit.daysSinceStart,
+                            lastMilestone: habit.lastMilestone,
+                            nextMilestone: habit.nextMilestone,
+                            progress: habit.progress,
                         )
                     }
                     Spacer()
@@ -43,11 +46,11 @@ struct SummaryView: View {
                     Button("\(Image(systemName: "plus"))") {
                         showingAddHabitView.toggle()
                     }
+                    .tint(.accentColor)
                     .sheet(
                         isPresented: $showingAddHabitView,
                         content: { AddHabitView() }
                     )
-                    .tint(.accentColor)
                     .disabled(habits.count >= 3)
                 }
             }

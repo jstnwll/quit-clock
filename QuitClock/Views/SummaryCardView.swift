@@ -11,7 +11,10 @@ import SwiftUI
 struct SummaryCardView: View {
     var habitName: String = ""
     var startDate: Date = Date()
-    var daysSinceStart: String = ""
+    var daysSinceStart: Int = 0
+    var lastMilestone: String = ""
+    var nextMilestone: String = ""
+    var progress: Double = 0.0
 
     var body: some View {
         VStack {
@@ -21,7 +24,7 @@ struct SummaryCardView: View {
                     Circle()
                         .trim(from: 0.02, to: 0.98)
                         .stroke(
-                            Color.yellow,
+                            Color.green,
                             style: StrokeStyle(
                                 lineWidth: 8,
                                 lineCap: .round
@@ -29,19 +32,25 @@ struct SummaryCardView: View {
                         )
                         .rotationEffect(.degrees(-90))
                         .frame(maxWidth: 75, maxHeight: 75)
-                    Text("3 days")
+                    Text(lastMilestone)
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
                 .padding(.trailing, 10)
                 Spacer()
                 VStack(spacing: 5) {
-                    Text(habitName)
+                    Text(habitName.trimmingCharacters(in: .whitespaces))
                         .font(.title2)
                         .fontWeight(.semibold)
-                    Text(daysSinceStart)
-                        .font(.headline)
-                        .fontWeight(.medium)
+                    if daysSinceStart == 1 {
+                        Text("\(daysSinceStart) day")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                    } else {
+                        Text("\(daysSinceStart) days")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                    }
                     Text("Since \(formatDate(startDate: startDate))")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -51,7 +60,7 @@ struct SummaryCardView: View {
                 // Calculate progress based on totalDays / milestoneDays
                 ZStack {
                     Circle()
-                        .trim(from: 0.02, to: 0.50)
+                        .trim(from: 0.02, to: (progress - 0.02))
                         .stroke(
                             Color.red,
                             style: StrokeStyle(
@@ -61,7 +70,7 @@ struct SummaryCardView: View {
                         )
                         .rotationEffect(.degrees(-90))
                         .frame(maxWidth: 75, maxHeight: 75)
-                    Text("18 mos")
+                    Text(nextMilestone)
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
@@ -74,19 +83,15 @@ struct SummaryCardView: View {
         .cornerRadius(15)
         .padding(.top, 5)
     }
-
-    func formatDays(_ days: Int) -> String {
-        // return days formatted with comma
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-
-        let formattedDays: String =
-            formatter.string(from: NSNumber(value: days)) ?? "\(days)"
-
-        return formattedDays
-    }
 }
 
 #Preview {
-    SummaryCardView(habitName: "Test", startDate: Date(), daysSinceStart: "123 days")
+    SummaryCardView(
+        habitName: "Abcdefghijklmn...",
+        startDate: Date(),
+        daysSinceStart: 1,
+        lastMilestone: "1 mo",
+        nextMilestone: "2 mo",
+        progress: 0.75
+    )
 }
