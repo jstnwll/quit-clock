@@ -1,0 +1,65 @@
+{
+  "fill-specializations" : [
+    {
+      "value" : {
+        "solid" : "display-p3:0.68235,0.83529,0.43137,1.00000"
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : "automatic"
+    }
+  ],
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "extended-srgb:1.00000,0.23137,0.18824,1.00000"
+          },
+          "glass" : true,
+          "image-name" : "front-circle.svg",
+          "name" : "front-circle"
+        },
+        {
+          "fill" : {
+            "solid" : "display-p3:0.68235,0.83529,0.43529,1.00000"
+          },
+          "glass" : true,
+          "image-name" : "middle-circle.svg",
+          "name" : "middle-circle"
+        },
+        {
+          "blend-mode" : "darken",
+          "fill" : {
+            "solid" : "extended-srgb:1.00000,0.23137,0.18824,1.00000"
+          },
+          "glass" : true,
+          "image-name" : "clock.svg",
+          "name" : "clock",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              0,
+              -30
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

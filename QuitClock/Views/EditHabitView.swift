@@ -10,22 +10,30 @@ import SwiftUI
 
 struct EditHabitView: View {
     @Bindable var habit: Habit
+    @State private var name: String = ""
+    @State private var date: Date = Date()
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+
+    init(habit: Habit) {
+        _habit = Bindable(wrappedValue: habit)
+        _name = State(initialValue: habit.habitName)
+        _date = State(initialValue: habit.startDate)
+    }
 
     var body: some View {
 
         NavigationStack {
             VStack {
-                TextField("Habit Name", text: $habit.habitName)
-                    .onChange(of: habit.habitName) { oldValue, newValue in
-                        if newValue.count > 15 {
-                            habit.habitName = String("\(newValue.prefix(15))")
+                TextField("Habit Name", text: $name)
+                    .onChange(of: name) { oldValue, newValue in
+                        if newValue.count > 12 {
+                            name = String("\(newValue.prefix(12))")
                         }
                     }
                 DatePicker(
                     "Start Date",
-                    selection: $habit.startDate,
+                    selection: $date,
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
@@ -56,8 +64,17 @@ struct EditHabitView: View {
                             "\(Image(systemName: "checkmark"))",
                             role: .confirm
                         ) {
-                            habit.habitName = habit.habitName
-                            habit.startDate = habit.startDate
+                            habit.habitName = name
+                            habit.startDate = date
+                            habit.daysSinceStart = habit.getdaysSinceStart(
+                                startDate: date
+                            )
+                            (
+                                habit.lastMilestone, habit.nextMilestone,
+                                habit.progress
+                            ) = habit.getMilestones(
+                                daysSinceStart: habit.daysSinceStart
+                            )
                             try? modelContext.save()
                             dismiss()
                         }

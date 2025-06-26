@@ -98,7 +98,7 @@ class Habit: Identifiable {
             let nextYear: Int = lastYear + 1
             lastMilestone = "\(lastYear) yrs"
             nextMilestone = "\(nextYear) yrs"
-            progress = Double(daysSinceStart / (nextYear * 365))
+            progress = Double(daysSinceStart) / Double(nextYear * 365)
         }
         return (lastMilestone, nextMilestone, progress)
     }

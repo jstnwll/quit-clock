@@ -43,13 +43,9 @@ struct SummaryView: View {
                     Spacer()
                 }
             }
-            .padding(5)
+            .padding(10)
             .navigationBarTitle("Summary")
             .toolbar {
-                ToolbarItem(placement: .largeSubtitle) {
-                    Text(formatDate(startDate: today))
-                        .foregroundStyle(.secondary)
-                }
                 ToolbarItem(placement: .bottomBar) {
                     if habits.count < 3 {
                         // TODO: Change .confirm to .primary if API changes

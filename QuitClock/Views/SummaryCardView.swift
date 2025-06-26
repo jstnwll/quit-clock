@@ -77,7 +77,10 @@ struct SummaryCardView: View {
                 .padding(.leading, 10)
             }
             .padding()
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+            .background(
+                .ultraThinMaterial,
+                in: RoundedRectangle(cornerRadius: 8)
+            )
             .padding(.top, 5)
         }
     }

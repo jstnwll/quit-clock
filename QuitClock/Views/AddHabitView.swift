@@ -50,7 +50,7 @@ struct AddHabitView: View {
                         || date > Date()
                     {
                         Button("\(Image(systemName: "checkmark"))") {}
-                        .disabled(true)
+                            .disabled(true)
                     } else {
                         Button(
                             "\(Image(systemName: "checkmark"))",
