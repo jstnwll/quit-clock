@@ -5,84 +5,58 @@
 //  Created by Justin Willemsen on 6/17/25.
 //
 
-import SwiftData
 import SwiftUI
 
 struct SummaryCardView: View {
-    var habitName: String = ""
-    var startDate: Date = Date()
-    var daysSinceStart: Int = 0
-    var lastMilestone: String = ""
-    var nextMilestone: String = ""
-    var progress: Double = 0.0
+    var habitName: String = "Cake"
+    var habitStartDate: Date = Date()
+    var daysSinceStart: Int = 10
+    var lastMilestone: Milestone = Milestone(name: "1 week", days: 7, color: .green)
+    var nextMilestone: Milestone = Milestone(name: "2 weeks", days: 14, color: .blue)
     
+    @State private var current: Double = 0.0
+
     var body: some View {
-        HStack {
-            // Last milestone completed
-            ZStack {
-                Circle()
-                    .trim(from: 0.02, to: 0.98)
-                    .stroke(
-                        Color.green,
-                        style: StrokeStyle(
-                            lineWidth: 8,
-                            lineCap: .round
-                        )
-                    )
-                    .rotationEffect(.degrees(-90))
-                    .frame(maxWidth: 75, maxHeight: 75)
-                Text(lastMilestone)
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-            }
+        HStack(alignment: .bottom) {
             Spacer()
-            VStack(spacing: 5) {
-                Text(habitName.trimmingCharacters(in: .whitespaces))
+            VStack(alignment: .leading){
+                Text(habitName)
                     .font(.title2)
-                    .fontWeight(.semibold)
-                if daysSinceStart == 1 {
-                    Text("\(daysSinceStart) day")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                } else {
-                    Text("\(daysSinceStart) days")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                }
-                Text("Since \(formatDate(startDate: startDate))")
-                    .font(.caption)
+                    .fontWeight(.medium)
+                Text(formatDate(date: habitStartDate))
+                    .font(.callout)
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            // Next milestone to achieve
-            // Calculate progress based on totalDays / milestoneDays
-            ZStack {
-                Circle()
-                    .trim(from: 0.02, to: (progress - 0.02))
-                    .stroke(
-                        Color.red,
-                        style: StrokeStyle(
-                            lineWidth: 8,
-                            lineCap: .round
-                        )
-                    )
-                    .rotationEffect(.degrees(-90))
-                    .frame(maxWidth: 75, maxHeight: 75)
-                Text(nextMilestone)
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+            Text(lastMilestone.name)
+                .font(.callout)
+                .foregroundStyle(.green)
+            
+            Gauge(
+                value: current,
+                in: Double(lastMilestone.days)...Double(nextMilestone.days)
+            ) {
+                } currentValueLabel: {
+                    Text(String(daysSinceStart))
+                        .foregroundStyle(lastMilestone.color)
+                }
+                .gaugeStyle(.accessoryCircular)
+                .scaleEffect(1.2)
+                .tint(Gradient(colors: [lastMilestone.color, nextMilestone.color]))
+            Text(nextMilestone.name)
+                .font(.callout)
+                .foregroundStyle(nextMilestone.color)
+            Spacer()
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 2.0)) {
+                current = Double(daysSinceStart)
+                 // Animate to intended value
             }
         }
     }
 }
 
 #Preview {
-    SummaryCardView(
-        habitName: "Ice Creams",
-        startDate: Date(),
-        daysSinceStart: 1,
-        lastMilestone: "1 mo",
-        nextMilestone: "2 mo",
-        progress: 0.75
-    )
+    SummaryCardView()
 }

@@ -13,7 +13,7 @@ struct SummaryView: View {
     @Query private var habits: [Habit]
     @State private var showingAddHabitSheet: Bool = false
     @State private var habitToEdit: Habit? = nil
-    var today: String = formatDate(startDate: Date())
+    var today: String = formatDate(date: Date())
 
     var body: some View {
         NavigationStack {
@@ -21,11 +21,10 @@ struct SummaryView: View {
                 ForEach(habits) { habit in
                     SummaryCardView(
                         habitName: habit.habitName,
-                        startDate: habit.startDate,
-                        daysSinceStart: habit.daysSinceStart,
-                        lastMilestone: habit.lastMilestone,
-                        nextMilestone: habit.nextMilestone,
-                        progress: habit.progress,
+                        habitStartDate: habit.habitStartDate,
+                        daysSinceStart: getDaysSinceStart(startDate: habit.habitStartDate),
+                        lastMilestone: Milestone(name: "Test", days: 12, color: .yellow),
+                        nextMilestone: Milestone(name: "Test2", days: 30, color: .blue)
                     )
                     .swipeActions(edge: .trailing) {
                         Button(

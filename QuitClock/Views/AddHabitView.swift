@@ -67,7 +67,7 @@ struct AddHabitView: View {
     }
     func addHabit() {
         modelContext.insert(
-            Habit(habitName: name, startDate: date)
+            Habit(habitName: name, habitStartDate: date)
         )
         try? modelContext.save()
 

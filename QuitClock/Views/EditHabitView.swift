@@ -18,7 +18,7 @@ struct EditHabitView: View {
     init(habit: Habit) {
         _habit = Bindable(wrappedValue: habit)
         _name = State(initialValue: habit.habitName)
-        _date = State(initialValue: habit.startDate)
+        _date = State(initialValue: habit.habitStartDate)
     }
 
     var body: some View {
