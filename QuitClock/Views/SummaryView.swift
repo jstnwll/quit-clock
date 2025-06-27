@@ -10,59 +10,77 @@ import SwiftUI
 
 struct SummaryView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(filter: #Predicate<Habit> { $0.isHidden == false }) private
-        var habits: [Habit]
-    @State private var showingAddHabitView = false
-    @State private var showingEditHabitView = false
+    @Query private var habits: [Habit]
+    @State private var showingAddHabitSheet: Bool = false
     @State private var habitToEdit: Habit? = nil
-    let today: Date = Date()
+    var today: String = formatDate(startDate: Date())
 
     var body: some View {
         NavigationStack {
-            VStack {
-                if habits.isEmpty {
-                    Text("Add something to quit!")
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(habits) { habit in
-                        SummaryCardView(
-                            habitName: habit.habitName,
-                            startDate: habit.startDate,
-                            daysSinceStart: habit.daysSinceStart,
-                            lastMilestone: habit.lastMilestone,
-                            nextMilestone: habit.nextMilestone,
-                            progress: habit.progress,
-                        )
-                        .onTapGesture {
-                            habitToEdit = habit
+            List {
+                ForEach(habits) { habit in
+                    SummaryCardView(
+                        habitName: habit.habitName,
+                        startDate: habit.startDate,
+                        daysSinceStart: habit.daysSinceStart,
+                        lastMilestone: habit.lastMilestone,
+                        nextMilestone: habit.nextMilestone,
+                        progress: habit.progress,
+                    )
+                    .swipeActions(edge: .trailing) {
+                        Button(
+                            role: .destructive,
+                            action: { deleteHabit(habit: habit) }
+                        ) {
+                            Image(systemName: "trash")
+                        }
+                        Button(action: { habitToEdit = habit }) {
+                            Image(systemName: "pencil")
                         }
                     }
-                    .sheet(item: $habitToEdit) { habit in
-                        EditHabitView(habit: habit)
+                }
+                .sheet(item: $habitToEdit) { habit in
+                    EditHabitView(habit: habit)
+                }
+            }
+            .listRowSpacing(10)
+            .listRowSeparator(.hidden)
+            .navigationTitle("Summary")
+            .navigationSubtitle(today)
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    if habits.count >= 3 {
+                        Button(action: {}) {
+                            Image(systemName: "plus")
+                        }
+                        .disabled(true)
+                    } else {
+                        Button(
+                            role: .confirm,
+                            action: { showingAddHabitSheet.toggle() }
+                        ) {
+                            Image(systemName: "plus")
+                        }
+                        .sheet(isPresented: $showingAddHabitSheet) {
+                            AddHabitView()
+                        }
+
                     }
+                }
+            }
+            if habits.isEmpty {
+                VStack {
+                    Text("Add a habit to get started!")
+                        .foregroundStyle(.secondary)
                     Spacer()
                 }
             }
-            .padding(10)
-            .navigationBarTitle("Summary")
-            .toolbar {
-                ToolbarItem(placement: .bottomBar) {
-                    if habits.count < 3 {
-                        // TODO: Change .confirm to .primary if API changes
-                        Button("\(Image(systemName: "plus"))", role: .confirm) {
-                            showingAddHabitView.toggle()
-                        }
-                        .sheet(
-                            isPresented: $showingAddHabitView,
-                            content: { AddHabitView() }
-                        )
-                    } else {
-                        Button("\(Image(systemName: "plus"))") {}
-                            .disabled(true)
-                    }
-                }
-            }
         }
+    }
+
+    func deleteHabit(habit: Habit) {
+        modelContext.delete(habit)
+        try? modelContext.save()
     }
 }
 

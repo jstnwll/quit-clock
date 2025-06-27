@@ -17,39 +17,38 @@ class Habit: Identifiable {
     var lastMilestone: String = ""
     var nextMilestone: String = ""
     var progress: Double = 0.0
-    var isHidden: Bool = false
 
     init(
         habitName: String,
-        startDate: Date,
-        isHidden: Bool,
+        startDate: Date
     ) {
+        self.id = UUID().uuidString
         self.habitName = habitName
         self.startDate = startDate
-        self.daysSinceStart = getdaysSinceStart(startDate: startDate)
+        self.daysSinceStart = getDaysSinceStart(startDate: startDate)
         (self.lastMilestone, self.nextMilestone, self.progress) = getMilestones(
             daysSinceStart: daysSinceStart
         )
-        self.isHidden = isHidden
     }
 
-    func getdaysSinceStart(startDate: Date) -> Int {
-        let daysSinceStart: Int = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day ?? 0
+    func getDaysSinceStart(startDate: Date) -> Int {
+        let daysSinceStart: Int =
+            Calendar.current.dateComponents([.day], from: startDate, to: Date())
+            .day ?? 0
         return daysSinceStart
     }
 
     func getMilestones(daysSinceStart: Int) -> (String, String, Double) {
-        // return lastMilestone and nextMilestone
         var lastMilestone: String = ""
         var nextMilestone: String = ""
         var progress: Double = 0.0
         
+
         if daysSinceStart < 1 {
             lastMilestone = "Today"
             nextMilestone = "1 day"
             progress = 0.75
-        }
-        else if daysSinceStart < 3 {
+        } else if daysSinceStart < 3 {
             lastMilestone = "1 day"
             nextMilestone = "3 days"
             progress = Double(daysSinceStart) / 3.0

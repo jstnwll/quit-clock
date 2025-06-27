@@ -8,10 +8,8 @@
 import Foundation
 
 func formatDate(startDate: Date) -> String {
-    return
-        DateFormatter.localizedString(
-            from: startDate,
-            dateStyle: .long,
-            timeStyle: .none
-        )
+    let formatter = DateFormatter()
+    formatter.dateStyle = .long
+    formatter.timeStyle = .none
+    return formatter.string(from: startDate)
 }

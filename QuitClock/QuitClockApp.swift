@@ -13,7 +13,7 @@ struct QuitClockApp: App {
     var body: some Scene {
         WindowGroup {
             SummaryView()
-                .modelContainer(for: [Habit.self])
+                .modelContainer(for: Habit.self)
         }
     }
 }

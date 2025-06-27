@@ -66,7 +66,7 @@ struct EditHabitView: View {
                         ) {
                             habit.habitName = name
                             habit.startDate = date
-                            habit.daysSinceStart = habit.getdaysSinceStart(
+                            habit.daysSinceStart = habit.getDaysSinceStart(
                                 startDate: date
                             )
                             (
@@ -85,7 +85,7 @@ struct EditHabitView: View {
                         "\(Image(systemName: "trash"))",
                         role: .destructive
                     ) {
-                        habit.isHidden = true
+                        //habit.isHidden = true
                         try? modelContext.save()
                         dismiss()
                     }
@@ -99,8 +99,7 @@ struct EditHabitView: View {
     EditHabitView(
         habit: Habit(
             habitName: "Sugar",
-            startDate: Date(),
-            isHidden: false
+            startDate: Date()
         )
     )
 }
