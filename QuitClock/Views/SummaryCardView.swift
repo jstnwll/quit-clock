@@ -8,50 +8,48 @@
 import SwiftUI
 
 struct SummaryCardView: View {
-    var habitName: String = "Cake"
-    var habitStartDate: Date = Date()
-    var daysSinceStart: Int = 10
-    var lastMilestone: Milestone = Milestone(name: "1 week", days: 7, color: .green)
-    var nextMilestone: Milestone = Milestone(name: "2 weeks", days: 14, color: .blue)
-    
+    var name: String = "Cake"
+    var date: Date = Date()
+    var daysSince: Int { getDaysSince(date: date) }
+    var lastMilestone: Milestone { getMilestones(daysSince: daysSince).0 }
+    var nextMilestone: Milestone { getMilestones(daysSince: daysSince).1 }
+
     @State private var current: Double = 0.0
 
     var body: some View {
         HStack(alignment: .bottom) {
-            Spacer()
-            VStack(alignment: .leading){
-                Text(habitName)
+            VStack(alignment: .leading) {
+                Text(name)
                     .font(.title2)
                     .fontWeight(.medium)
-                Text(formatDate(date: habitStartDate))
+                Text(formatDate(date: date))
                     .font(.callout)
                     .foregroundStyle(.secondary)
             }
             Spacer()
             Text(lastMilestone.name)
                 .font(.callout)
-                .foregroundStyle(.green)
-            
+                .foregroundStyle(lastMilestone.color)
+
             Gauge(
                 value: current,
                 in: Double(lastMilestone.days)...Double(nextMilestone.days)
             ) {
-                } currentValueLabel: {
-                    Text(String(daysSinceStart))
-                        .foregroundStyle(lastMilestone.color)
-                }
-                .gaugeStyle(.accessoryCircular)
-                .scaleEffect(1.2)
-                .tint(Gradient(colors: [lastMilestone.color, nextMilestone.color]))
+            } currentValueLabel: {
+                Text(" \(daysSince) ")
+                    .foregroundStyle(lastMilestone.color)
+            }
+            .gaugeStyle(.accessoryCircular)
+            .scaleEffect(1.25)
+            .tint(Gradient(colors: [lastMilestone.color, nextMilestone.color]))
             Text(nextMilestone.name)
                 .font(.callout)
                 .foregroundStyle(nextMilestone.color)
-            Spacer()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 2.0)) {
-                current = Double(daysSinceStart)
-                 // Animate to intended value
+                current = (daysSince == 0) ? 0.75 : Double(daysSince)
+                // Animate to intended value
             }
         }
     }

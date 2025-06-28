@@ -2,28 +2,21 @@
 //  Habit.swift
 //  QuitClock
 //
-//  Created by Justin Willemsen on 6/23/25.
+//  Created by Justin Willemsen on 6/27/25.
 //
 
 import Foundation
 import SwiftData
-import SwiftUI
 
 @Model
 class Habit: Identifiable {
-    var habitName: String
-    var habitStartDate: Date
-    var daysSinceStart: Int
-    var lastMilestone: Milestone
-    var nextMilestone: Milestone
+    var id: UUID
+    var name: String
+    var date: Date
 
-    init(
-        habitName: String,
-        habitStartDate: Date
-    ) {
-        self.habitName = habitName
-        self.habitStartDate = habitStartDate
-        self.daysSinceStart = getDaysSinceStart(startDate: habitStartDate)
-        (self.lastMilestone, self.nextMilestone) = getMilestones(daysSinceStart: daysSinceStart)
+    init(name: String, date: Date = Date()) {
+        self.id = UUID()
+        self.name = name
+        self.date = date
     }
 }

@@ -19,24 +19,18 @@ struct SummaryView: View {
         NavigationStack {
             List {
                 ForEach(habits) { habit in
-                    SummaryCardView(
-                        habitName: habit.habitName,
-                        habitStartDate: habit.habitStartDate,
-                        daysSinceStart: getDaysSinceStart(startDate: habit.habitStartDate),
-                        lastMilestone: Milestone(name: "Test", days: 12, color: .yellow),
-                        nextMilestone: Milestone(name: "Test2", days: 30, color: .blue)
-                    )
-                    .swipeActions(edge: .trailing) {
-                        Button(
-                            role: .destructive,
-                            action: { deleteHabit(habit: habit) }
-                        ) {
-                            Image(systemName: "trash")
+                    SummaryCardView(name: habit.name, date: habit.date)
+                        .swipeActions(edge: .trailing) {
+                            Button(
+                                role: .destructive,
+                                action: { deleteHabit(habit: habit) }
+                            ) {
+                                Image(systemName: "trash")
+                            }
+                            Button(action: { habitToEdit = habit }) {
+                                Image(systemName: "pencil")
+                            }
                         }
-                        Button(action: { habitToEdit = habit }) {
-                            Image(systemName: "pencil")
-                        }
-                    }
                 }
                 .sheet(item: $habitToEdit) { habit in
                     EditHabitView(habit: habit)

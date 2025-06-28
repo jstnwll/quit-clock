@@ -9,16 +9,16 @@ import SwiftData
 import SwiftUI
 
 struct EditHabitView: View {
-    @Bindable var habit: Habit
-    @State private var name: String = ""
-    @State private var date: Date = Date()
+    let habit: Habit
+    @State private var name: String
+    @State private var date: Date
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
     init(habit: Habit) {
-        _habit = Bindable(wrappedValue: habit)
-        _name = State(initialValue: habit.habitName)
-        _date = State(initialValue: habit.habitStartDate)
+        self.habit = habit
+        _name = State(initialValue: habit.name)
+        _date = State(initialValue: habit.date)
     }
 
     var body: some View {
@@ -27,35 +27,37 @@ struct EditHabitView: View {
             VStack {
                 TextField("Habit Name", text: $name)
                     .onChange(of: name) { oldValue, newValue in
-                        if newValue.count > 12 {
-                            name = String("\(newValue.prefix(12))")
+                        if newValue.count > 15 {
+                            name = String("\(newValue.prefix(15))")
                         }
                     }
+                    .accessibilityHint("Edit the name of the habit.")
                 DatePicker(
-                    "Start Date",
+                    "Quit Date",
                     selection: $date,
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
+                .accessibilityHint("Edit the date you quit the habit.")
                 Spacer()
             }
             .padding()
             .background(.windowBackground)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("", systemImage: "xmark", role: .cancel) {
+                    Button("\(Image(systemName: "xmark"))", role: .cancel) {
                         dismiss()
                     }
+                    .accessibilityLabel("Cancel editing habit.")
                 }
                 ToolbarItem(placement: .title) {
                     Text("Edit Habit")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     // TODO: Change .confirm to .primary if API changes
-                    if habit.habitName.isEmpty
-                        || habit.habitName.trimmingCharacters(in: .whitespaces)
-                            == ""
-                        || habit.startDate > Date()
+                    if name.isEmpty
+                        || name.trimmingCharacters(in: .whitespaces) == ""
+                        || date > Date()
                     {
                         Button("\(Image(systemName: "checkmark"))") {}
                             .disabled(true)
@@ -64,42 +66,24 @@ struct EditHabitView: View {
                             "\(Image(systemName: "checkmark"))",
                             role: .confirm
                         ) {
-                            habit.habitName = name
-                            habit.startDate = date
-                            habit.daysSinceStart = habit.getDaysSinceStart(
-                                startDate: date
-                            )
-                            (
-                                habit.lastMilestone, habit.nextMilestone,
-                                habit.progress
-                            ) = habit.getMilestones(
-                                daysSinceStart: habit.daysSinceStart
-                            )
-                            try? modelContext.save()
+                            saveHabit()
+                            name = ""
                             dismiss()
                         }
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    Button(
-                        "\(Image(systemName: "trash"))",
-                        role: .destructive
-                    ) {
-                        //habit.isHidden = true
-                        try? modelContext.save()
-                        dismiss()
+                        .accessibilityLabel("Save changes to habit.")
                     }
                 }
             }
         }
     }
+    func saveHabit() {
+        habit.name = name
+        habit.date = date
+        try? modelContext.save()
+    }
 }
 
 #Preview {
-    EditHabitView(
-        habit: Habit(
-            habitName: "Sugar",
-            startDate: Date()
-        )
-    )
+    let sampleHabit = Habit(name: "Sugar", date: Date())
+    EditHabitView(habit: sampleHabit)
 }

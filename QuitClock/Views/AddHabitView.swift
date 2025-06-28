@@ -20,16 +20,18 @@ struct AddHabitView: View {
             VStack {
                 TextField("Habit Name", text: $name)
                     .onChange(of: name) { oldValue, newValue in
-                        if newValue.count > 15 {
-                            name = String("\(newValue.prefix(15))")
-                        }
+                        name = newValue
                     }
+                    .accessibilityHint(
+                        "Enter the name of the habit."
+                    )
                 DatePicker(
-                    "Start Date",
+                    "Quit Date",
                     selection: $date,
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
+                .accessibilityHint("Enter the date you quit the habit.")
                 Spacer()
             }
             .padding()
@@ -39,6 +41,7 @@ struct AddHabitView: View {
                     Button("\(Image(systemName: "xmark"))", role: .cancel) {
                         dismiss()
                     }
+                    .accessibilityLabel("Cancel adding habit.")
                 }
                 ToolbarItem(placement: .title) {
                     Text("New Habit")
@@ -60,6 +63,7 @@ struct AddHabitView: View {
                             name = ""
                             dismiss()
                         }
+                        .accessibilityLabel("Save new habit.")
                     }
                 }
             }
@@ -67,7 +71,7 @@ struct AddHabitView: View {
     }
     func addHabit() {
         modelContext.insert(
-            Habit(habitName: name, habitStartDate: date)
+            Habit(name: name, date: date)
         )
         try? modelContext.save()
 
