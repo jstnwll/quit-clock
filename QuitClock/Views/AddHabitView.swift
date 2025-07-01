@@ -19,6 +19,7 @@ struct AddHabitView: View {
         NavigationStack {
             VStack {
                 TextField("Habit Name", text: $name)
+                    .accessibilityLabel("Habit Name")
                     .onChange(of: name) { oldValue, newValue in
                         name = newValue
                     }
@@ -30,10 +31,12 @@ struct AddHabitView: View {
                     selection: $date,
                     displayedComponents: .date
                 )
-                .datePickerStyle(.graphical)
+                .accessibilityLabel("Quit Date")
                 .accessibilityHint("Enter the date you quit the habit.")
+                .datePickerStyle(.graphical)
                 Spacer()
             }
+            .accessibilityElement(children: .combine)
             .padding()
             .background(.windowBackground)
             .toolbar {
@@ -41,19 +44,23 @@ struct AddHabitView: View {
                     Button("\(Image(systemName: "xmark"))", role: .cancel) {
                         dismiss()
                     }
-                    .accessibilityLabel("Cancel adding habit.")
+                    .accessibilityLabel("Cancel adding habit")
+                    .accessibilityHint("Dismisses this screen and discards your changes")
                 }
                 ToolbarItem(placement: .title) {
                     Text("New Habit")
+                        .accessibilityLabel("New Habit")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    // TODO: Change .confirm to .primary if API changes
-                    if name.isEmpty
+                    let isDisabled = name.isEmpty
                         || name.trimmingCharacters(in: .whitespaces) == ""
                         || date > Date()
-                    {
+                    
+                    if isDisabled {
                         Button("\(Image(systemName: "checkmark"))") {}
                             .disabled(true)
+                            .accessibilityLabel("Save new habit (disabled)")
+                            .accessibilityHint("Fill in all fields to enable this button")
                     } else {
                         Button(
                             "\(Image(systemName: "checkmark"))",
@@ -63,7 +70,8 @@ struct AddHabitView: View {
                             name = ""
                             dismiss()
                         }
-                        .accessibilityLabel("Save new habit.")
+                        .accessibilityLabel("Save new habit")
+                        .accessibilityHint("Save and track this habit")
                     }
                 }
             }
@@ -81,3 +89,4 @@ struct AddHabitView: View {
 #Preview {
     AddHabitView()
 }
+

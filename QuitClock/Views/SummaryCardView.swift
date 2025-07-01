@@ -31,6 +31,7 @@ struct SummaryCardView: View {
                 .font(.callout)
                 .foregroundStyle(lastMilestone.color)
 
+            // Provide detailed accessibility information for the gauge
             Gauge(
                 value: current,
                 in: Double(lastMilestone.days)...Double(nextMilestone.days)
@@ -42,10 +43,15 @@ struct SummaryCardView: View {
             .gaugeStyle(.accessoryCircular)
             .scaleEffect(1.25)
             .tint(Gradient(colors: [lastMilestone.color, nextMilestone.color]))
+            .accessibilityLabel("Progress toward next milestone")
+            .accessibilityValue("\(daysSince) days since quitting. Next milestone: \(nextMilestone.name) in \(nextMilestone.days - daysSince) days.")
+            
             Text(nextMilestone.name)
                 .font(.callout)
                 .foregroundStyle(nextMilestone.color)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(name), quit on \(formatDate(date: date)). Current streak: \(daysSince) days. Last milestone reached: \(lastMilestone.name). Next milestone: \(nextMilestone.name). Progress: \(Int((current - Double(lastMilestone.days)) / Double(nextMilestone.days - lastMilestone.days) * 100)) percent.")
         .onAppear {
             withAnimation(.easeOut(duration: 2.0)) {
                 current = (daysSince == 0) ? 0.75 : Double(daysSince)

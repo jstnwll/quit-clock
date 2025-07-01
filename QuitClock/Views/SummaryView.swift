@@ -20,16 +20,20 @@ struct SummaryView: View {
             List {
                 ForEach(habits) { habit in
                     SummaryCardView(name: habit.name, date: habit.date)
-                        .swipeActions(edge: .trailing) {
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button(
                                 role: .destructive,
                                 action: { deleteHabit(habit: habit) }
                             ) {
                                 Image(systemName: "trash")
                             }
+                            .accessibilityLabel("Delete habit \(habit.name)")
+                            .accessibilityHint("Removes this habit")
                             Button(action: { habitToEdit = habit }) {
                                 Image(systemName: "pencil")
                             }
+                            .accessibilityLabel("Edit habit \(habit.name)")
+                            .accessibilityHint("Edit details for this habit")
                         }
                 }
                 .sheet(item: $habitToEdit) { habit in
@@ -46,6 +50,8 @@ struct SummaryView: View {
                         Button(action: {}) {
                             Image(systemName: "plus")
                         }
+                        .accessibilityLabel("Add new habit (limit reached)")
+                        .accessibilityHint("You can only track up to 3 habits")
                         .disabled(true)
                     } else {
                         Button(
@@ -54,8 +60,11 @@ struct SummaryView: View {
                         ) {
                             Image(systemName: "plus")
                         }
+                        .accessibilityLabel("Add new habit")
+                        .accessibilityHint("Opens a sheet to add a new habit")
                         .sheet(isPresented: $showingAddHabitSheet) {
                             AddHabitView()
+                                .accessibilityLabel("Add a new habit")
                         }
 
                     }
@@ -64,6 +73,8 @@ struct SummaryView: View {
             if habits.isEmpty {
                 VStack {
                     Text("Add a habit to get started!")
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityLabel("No habits added yet. Add a habit to get started!")
                         .foregroundStyle(.secondary)
                     Spacer()
                 }

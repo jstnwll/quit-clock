@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Return string of date in June, 2, 2025 format.
+
 func formatDate(date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .long

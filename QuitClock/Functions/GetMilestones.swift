@@ -19,13 +19,15 @@ func getMilestones(daysSince: Int) -> (Milestone, Milestone) {
         Milestone(name: "9 mo", days: 270, color: .indigo),
         Milestone(name: "1 yr", days: 365, color: .pink),
         Milestone(name: "18 mo", days: 540, color: .purple),
-        Milestone(name: "2 yr", days: 730, color: .red),
-        // Milestone(name: "Multiple years", days: 730+, color: .mint)
+        Milestone(name: "2 yr", days: 730, color: .red)
     ]
 
     var lastMilestone: Milestone = milestones[0]
     var nextMilestone: Milestone = milestones[1]
 
+    // Loops through to find the current milestone and its color based on days since quitting habit.
+    // Anything larger than 2 years (730 days), the next milestone is the following year.
+    
     for i in 0..<(milestones.count - 1) {
         if daysSince >= milestones[i].days
             && daysSince < milestones[i + 1].days
